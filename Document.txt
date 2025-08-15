@@ -1,0 +1,504 @@
+# 🚀 Social-Connect - Full-Stack Social Media Platform
+
+> **📖 Go to [Setup & Installation](#-setup--installation) for login credentials and quick start guide**
+
+A modern, real-time enabled social media platform built with Django REST Framework backend and React TypeScript frontend. Features comprehensive user authentication, real-time notifications, post management, engagement system, and admin panel.
+
+## 🌟 Key Features
+
+### 🔐 Authentication & Security
+- **Email-based registration** with verification
+- **JWT token authentication** with refresh tokens
+- **Password reset** via email
+- **Role-based access control** (User/Admin)
+- **Email verification** system
+- **Secure password policies**
+
+### 👥 User Management
+- **Custom user profiles** with bio, avatar, website, location
+- **Privacy settings** (Public, Private, Followers-only)
+- **Follow/Unfollow system**
+- **Profile customization**
+- **Avatar upload** with Supabase Storage
+
+### 📝 Content Management
+- **Rich text posts** with image support
+- **Post categories** and tagging
+- **Post privacy controls**
+- **Image upload** (JPEG/PNG, max 2MB)
+- **Post editing and deletion**
+
+### ❤️ Engagement System
+- **Like/Unlike posts**
+- **Comment system** with threading
+- **Real-time engagement counters**
+- **Engagement analytics**
+
+### 🔔 Real-Time Notifications
+- **Live notifications** via Supabase Realtime
+- **Follow notifications**
+- **Like notifications**
+- **Comment notifications**
+- **Notification preferences**
+
+### 📊 Admin Panel
+- **User management** (view, deactivate, delete)
+- **Post moderation** (view, delete)
+- **Platform statistics**
+- **Admin-only endpoints**
+- **Comprehensive analytics**
+
+### 🎨 Modern UI/UX
+- **Responsive design** (Mobile-first)
+- **Tailwind CSS** styling
+- **Modern component library**
+- **Beautiful gradients and animations**
+- **Loading states and error handling**
+
+## 🏗️ Architecture
+
+### Backend (Django REST Framework)
+```
+social-connect_Backend/
+├── socialconnect/
+│   ├── users/           # User authentication & profiles
+│   ├── posts/           # Post management
+│   ├── engagement/      # Likes & comments
+│   ├── feed/            # Personalized feed
+│   ├── notifications/   # Real-time notifications
+│   ├── adminpanel/      # Admin functionality
+│   └── socialconnect/   # Project settings
+```
+
+### Frontend (React + TypeScript)
+```
+social-connect_Frontend/
+├── src/
+│   ├── api/             # API integration
+│   ├── components/      # Reusable UI components
+│   ├── contexts/        # State management
+│   ├── pages/           # Application pages
+│   ├── types/           # TypeScript definitions
+│   └── utils/           # Utility functions
+```
+
+## 🛠️ Tech Stack
+
+### Backend
+- **Framework**: Django 5.2.5
+- **API**: Django REST Framework 3.16.1
+- **Authentication**: JWT (djangorestframework-simplejwt)
+- **Database**: PostgreSQL (via Supabase)
+- **Storage**: Supabase Storage
+- **Real-time**: Supabase Realtime
+- **Email**: SMTP (Gmail/Console)
+- **Deployment**: Render
+
+### Frontend
+- **Framework**: React 18 + TypeScript
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS
+- **Routing**: React Router DOM
+- **HTTP Client**: Axios
+- **Icons**: Lucide React
+- **State Management**: React Context API
+- **Deployment**: Vercel
+
+### Infrastructure
+- **Database**: Supabase PostgreSQL
+- **File Storage**: Supabase Storage
+- **Real-time**: Supabase Realtime
+- **Email**: SMTP (Gmail)
+- **CDN**: Vercel/Render
+
+## 🚀 Setup & Installation
+
+### Prerequisites
+- Node.js 18+ and npm
+- Python 3.8+
+- Git
+- Supabase account
+- Gmail account (for email)
+
+### Quick Start
+
+#### 1. Clone Repository
+```bash
+git clone <repository-url>
+cd Social-connect
+```
+
+#### 2. Backend Setup
+```bash
+cd social-connect_Backend
+
+# Create virtual environment
+python -m venv myvenv
+source myvenv/bin/activate  # On Windows: myvenv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Set up environment variables
+cp env.example .env
+# Edit .env with your configuration
+
+# Run migrations
+python manage.py migrate
+
+# Create superuser
+python manage.py createsuperuser
+
+# Start development server
+python manage.py runserver
+```
+
+#### 3. Frontend Setup
+```bash
+cd social-connect_Frontend
+
+# Install dependencies
+npm install
+
+# Set up environment variables
+cp env.example .env
+# Edit .env with your configuration
+
+# Start development server
+npm run dev
+```
+
+### Environment Variables
+
+#### Backend (.env)
+```env
+DEBUG=True
+SECRET_KEY=your_secret_key_here
+DATABASE_URL=postgresql://postgres:[password]@[host]:[port]/[database]
+ALLOWED_HOSTS=localhost,127.0.0.1
+CORS_ALLOWED_ORIGINS=http://localhost:5173
+FRONTEND_URL=http://localhost:5173
+
+# Email settings
+USE_SMTP=True
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_HOST_USER=your_email@gmail.com
+EMAIL_HOST_PASSWORD=your_app_password
+EMAIL_USE_TLS=True
+
+# Supabase settings
+SUPABASE_URL=your_supabase_url
+SUPABASE_KEY=your_supabase_service_key
+```
+
+#### Frontend (.env)
+```env
+VITE_API_BASE_URL=http://localhost:8000/api
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+### Supabase Setup
+
+1. **Create Supabase Project**
+   - Go to [supabase.com](https://supabase.com)
+   - Create new project
+   - Note down URL and keys
+
+2. **Enable Real-time**
+   - Go to Database → Replication
+   - Enable real-time for `notifications` table
+
+3. **Set up Storage**
+   - Go to Storage → Create bucket named `avatars`
+   - Set up RLS policies
+
+4. **Database Configuration**
+   - Use the connection string from Supabase dashboard
+   - Update `DATABASE_URL` in backend `.env`
+
+## 📱 Usage
+
+### Default Login Credentials
+After creating a superuser, you can login with:
+- **Username**: Your superuser username
+- **Password**: Your superuser password
+
+### User Registration
+1. Navigate to `/register`
+2. Fill in username, email, and password
+3. Check email for verification link
+4. Click verification link to activate account
+5. Login with credentials
+
+### Admin Access
+1. Login with superuser credentials
+2. Navigate to `/admin` for Django admin
+3. Or use the admin panel at `/admin-dashboard`
+
+## 🔌 API Documentation
+
+### Authentication Endpoints
+```
+POST /api/auth/register/          # User registration
+POST /api/auth/login/             # User login
+POST /api/auth/logout/            # User logout
+POST /api/auth/token/refresh/     # Refresh JWT token
+POST /api/auth/verify-email/      # Email verification
+POST /api/auth/reset-password/    # Password reset
+POST /api/auth/change-password/   # Change password
+```
+
+### User Endpoints
+```
+GET    /api/users/me/             # Get current user profile
+PUT    /api/users/me/             # Update current user profile
+GET    /api/users/{id}/           # Get user profile
+POST   /api/users/{id}/follow/    # Follow user
+DELETE /api/users/{id}/follow/    # Unfollow user
+GET    /api/users/{id}/followers/ # Get user followers
+GET    /api/users/{id}/following/ # Get user following
+```
+
+### Post Endpoints
+```
+GET    /api/posts/                # List posts
+POST   /api/posts/                # Create post
+GET    /api/posts/{id}/           # Get post details
+PUT    /api/posts/{id}/           # Update post
+DELETE /api/posts/{id}/           # Delete post
+```
+
+### Engagement Endpoints
+```
+POST   /api/posts/{id}/like/      # Like post
+DELETE /api/posts/{id}/like/      # Unlike post
+GET    /api/posts/{id}/like-status/ # Check like status
+POST   /api/posts/{id}/comments/  # Add comment
+GET    /api/posts/{id}/comments/  # List comments
+DELETE /api/comments/{id}/        # Delete comment
+```
+
+### Feed Endpoints
+```
+GET    /api/feed/                 # Get personalized feed
+```
+
+### Notification Endpoints
+```
+GET    /api/notifications/        # List notifications
+POST   /api/notifications/{id}/read/ # Mark as read
+POST   /api/notifications/mark-all-read/ # Mark all as read
+```
+
+### Admin Endpoints
+```
+GET    /api/admin/users/          # List all users
+GET    /api/admin/users/{id}/     # Get user details
+PUT    /api/admin/users/{id}/deactivate/ # Deactivate user
+GET    /api/admin/posts/          # List all posts
+DELETE /api/admin/posts/{id}/     # Delete any post
+GET    /api/admin/stats/          # Platform statistics
+```
+
+## 🔧 Development
+
+### Backend Development
+```bash
+cd social-connect_Backend
+source myvenv/bin/activate
+
+# Run tests
+python manage.py test
+
+# Create migrations
+python manage.py makemigrations
+
+# Apply migrations
+python manage.py migrate
+
+# Start development server
+python manage.py runserver
+```
+
+### Frontend Development
+```bash
+cd social-connect_Frontend
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Run linting
+npm run lint
+```
+
+### Database Management
+```bash
+# Create migrations
+python manage.py makemigrations
+
+# Apply migrations
+python manage.py migrate
+
+# Create superuser
+python manage.py createsuperuser
+
+# Load fixtures (if any)
+python manage.py loaddata fixtures.json
+```
+
+## 🚀 Deployment
+
+### Backend Deployment (Render)
+1. Push code to GitHub
+2. Connect repository to Render
+3. Set environment variables in Render dashboard
+4. Deploy automatically
+
+### Frontend Deployment (Vercel)
+1. Push code to GitHub
+2. Connect repository to Vercel
+3. Set environment variables in Vercel dashboard
+4. Deploy automatically
+
+## 🔒 Security Features
+
+- **JWT Authentication** with refresh tokens
+- **CORS Configuration** for cross-origin requests
+- **Password Hashing** with Django's built-in hashers
+- **Email Verification** for account activation
+- **Role-based Access Control** for admin functions
+- **Input Validation** and sanitization
+- **Rate Limiting** (configurable)
+- **HTTPS Enforcement** in production
+
+## 📊 Performance Optimizations
+
+- **Database Indexing** on frequently queried fields
+- **Pagination** for large datasets
+- **Image Optimization** with Pillow
+- **Static File Compression** with WhiteNoise
+- **Caching** for frequently accessed data
+- **Lazy Loading** for images and content
+- **Code Splitting** in frontend
+
+## 🧪 Testing
+
+### Backend Testing
+```bash
+cd social-connect_Backend
+python manage.py test
+```
+
+### Frontend Testing
+```bash
+cd social-connect_Frontend
+npm test
+```
+
+### API Testing
+Use the provided test files:
+- `test_followers_api.py` - Follow system tests
+- Postman collections (available in docs)
+
+## 📈 Monitoring & Analytics
+
+- **Error Logging** with Django's logging system
+- **Performance Monitoring** with built-in Django tools
+- **User Analytics** through admin panel
+- **Real-time Statistics** for platform usage
+
+## 🔄 Real-time Features
+
+### Supabase Realtime Integration
+- **Live Notifications** for follows, likes, comments
+- **Real-time Feed Updates** when followed users post
+- **Instant Engagement Counters** for likes and comments
+- **Live User Status** (online/offline)
+
+### WebSocket Events
+- `notification_created` - New notification
+- `post_created` - New post from followed user
+- `like_toggled` - Post like/unlike
+- `comment_added` - New comment on post
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+### Development Guidelines
+- Follow PEP 8 for Python code
+- Use TypeScript for frontend development
+- Write tests for new features
+- Update documentation for API changes
+- Use conventional commit messages
+
+
+
+## 🆘 Support
+
+### Common Issues
+
+#### Backend Issues
+- **Database Connection**: Check `DATABASE_URL` in `.env`
+- **Email Not Sending**: Verify SMTP settings
+- **CORS Errors**: Check `CORS_ALLOWED_ORIGINS`
+- **Migration Errors**: Run `python manage.py migrate`
+
+#### Frontend Issues
+- **API Connection**: Verify `VITE_API_BASE_URL`
+- **Build Errors**: Check TypeScript compilation
+- **Styling Issues**: Ensure Tailwind CSS is properly configured
+
+#### Real-time Issues
+- **Notifications Not Working**: Check Supabase configuration
+- **WebSocket Errors**: Verify real-time is enabled in Supabase
+
+### Getting Help
+1. Check the [troubleshooting section](#-troubleshooting)
+2. Review the [deployment guide](DEPLOYMENT_GUIDE.md)
+3. Check [issue tracker](link-to-issues)
+4. Contact support team
+
+## 🎯 Roadmap
+
+### Phase 1 (Current)
+- ✅ User authentication system
+- ✅ Post creation and management
+- ✅ Follow/unfollow system
+- ✅ Like and comment functionality
+- ✅ Real-time notifications
+- ✅ Admin panel
+
+### Phase 2 (Planned)
+- 🔄 Direct messaging system
+- 🔄 Story/Status feature
+- 🔄 Advanced search and filters
+- 🔄 Mobile app (React Native)
+- 🔄 Push notifications
+
+### Phase 3 (Future)
+- 📅 Video sharing
+- 📅 Live streaming
+- 📅 Advanced analytics
+- 📅 AI-powered content recommendations
+- 📅 Multi-language support
+
+
+
+---
+
+**⭐ Star this repository if you find it helpful!**
+
+
